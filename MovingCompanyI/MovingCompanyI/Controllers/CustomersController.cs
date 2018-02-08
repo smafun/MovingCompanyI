@@ -34,7 +34,11 @@ namespace MovingCompanyI.Controllers
             }
 
             var customer = await _context.Customers
+                .Include(s => s.Orders)
+                //.ThenInclude(e => e.Course)
+                .AsNoTracking()
                 .SingleOrDefaultAsync(m => m.Id == id);
+            
             if (customer == null)
             {
                 return NotFound();
